@@ -104,6 +104,15 @@ def get_coco_from_labelme_folder(
                     category_id=category_id,
                     category_name=category_name,
                 )
+            elif shape["shape_type"] == "point":
+                points = [[x, y, 2] for x, y in shape["points"]]
+                num_kp = len(points)
+                coco_annotation = CocoAnnotation(
+                    keypoints=points,
+                    num_keypoints=num_kp,
+                    category_id=category_id,
+                    category_name=category_name,
+                )
             else:
                 raise NotImplementedError(
                     f'shape_type={shape["shape_type"]} not supported.'
